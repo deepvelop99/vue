@@ -1,13 +1,17 @@
 <template>
-  <router-view />
+  <q-page class="flex flex-center">
+    <img
+      alt="Quasar logo"
+      src="~assets/quasar-logo-vertical.svg"
+      style="width: 200px; height: 200px"
+    />
+  </q-page>
 </template>
 
 <script>
-import { mixin } from "lodash-es";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "App",
-  title: mixin,
+  name: "IndexPage",
 });
 </script>

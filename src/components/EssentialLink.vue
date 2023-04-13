@@ -9,7 +9,6 @@
       <q-item-label caption>{{ caption }}</q-item-label>
     </q-item-section>
   </q-item>
-  <q-item clickable tag="a" :href="link"></q-item>
 </template>
 
 <script>
