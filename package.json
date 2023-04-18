@@ -6,8 +6,8 @@
   "author": "고현서 <por1329@naver.com>",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon server.js",
-    "start": "cross-env NODE_ENV=production node server.js"
+    "dev": "quasar dev",
+    "build": "quasar build"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
