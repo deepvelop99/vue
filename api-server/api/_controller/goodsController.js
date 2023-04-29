@@ -17,14 +17,9 @@ const getTotal = async () => {
 };
 const getGoodsList = async (req) => {
   try {
-    const cnt = req.query.startDate || 0;
+    const cnt = req.query.cnt || 0;
     const len = parseInt(req.query.len) || 10;
-
-    let where = "";
-    if (cnt) {
-      where = `WHERE goods_cnt >= '${cnt}'`;
-    }
-    const query = `SELECT * FROM ${TABLE.GOODS} ${where} order by goods_id desc limit 0, ${len}`;
+    const query = `SELECT * FROM ${TABLE.GOODS} WHERE goods_cnt >= ${cnt} order by goods_id desc limit 0, ${len}`;
     console.log(query);
     const [rows] = await db.execute(query);
     return rows;
@@ -99,8 +94,8 @@ const goodsController = {
   },
 
   update: async (req) => {
-    const { name } = req.params;
-    const { id, cnt, price } = req.body;
+    const { id } = req.params;
+    const { name, cnt, price } = req.body;
     if (isEmpty(id) || isEmpty(name) || isEmpty(cnt) || isEmpty(price)) {
       return resData(
         STATUS.E100.result,
@@ -110,9 +105,10 @@ const goodsController = {
     }
 
     try {
-      const query = `UPDATE ${TABLE.GOODS} SET goods_id=?, goods_cnt=?, goods_price=? WHERE goods_name=?`;
-      const values = [id, cnt, price, name];
+      const query = `UPDATE ${TABLE.GOODS} SET goods_cnt=?, goods_price=?, goods_name=? WHERE goods_id=?`;
+      const values = [cnt, price, name, id];
       const [rows] = await db.execute(query, values);
+      console.log(rows);
       if (rows.affectedRows == 1) {
         return resData(
           STATUS.S200.result,

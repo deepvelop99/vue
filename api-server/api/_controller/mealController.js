@@ -17,7 +17,7 @@ const getTotal = async () => {
 };
 const getList = async (req) => {
   try {
-    const startDate = req.query.startDate || 2023 - 04 - 13;
+    const startDate = req.query.startDate || "2023-04-13";
     const len = parseInt(req.query.len) || 10;
 
     let where = "";
@@ -127,6 +127,7 @@ const mealController = {
       const query = `UPDATE ${TABLE.MEAL} SET main =?, soup=?, kimchi=?, rice=?, side1=?, side2=? WHERE day=?`;
       const values = [main, soup, kimchi, rice, side1, side2, day];
       const [rows] = await db.execute(query, values);
+      console.log(rows);
       if (rows.affectedRows == 1) {
         return resData(
           STATUS.S200.result,

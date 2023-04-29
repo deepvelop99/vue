@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 });
 
 // update
-router.put("/:name", async (req, res) => {
+router.put("/:id", async (req, res) => {
   const result = await goodsController.update(req);
   res.json(result);
 });

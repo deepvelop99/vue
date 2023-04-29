@@ -17,12 +17,12 @@ const getTotal = async () => {
 };
 const getfareList = async (req) => {
   try {
-    const startDate = req.query.startDate || 0;
+    const fare = req.query.fare || 0;
     const len = parseInt(req.query.len) || 10;
 
     let where = "";
-    if (startDate) {
-      where = `WHERE fare >= '${startDate}'`;
+    if (fare) {
+      where = `WHERE fare >= '${fare}'`;
     }
     const query = `SELECT * FROM ${TABLE.PHONE} ${where} order by fare desc limit 0, ${len}`;
     console.log(query);
@@ -50,12 +50,12 @@ const getSelectOne = async (name) => {
 };
 const phoneController = {
   create: async (req) => {
-    const { phone, name, address, registraction, fare } = req.body;
+    const { phone, name, address, registration, fare } = req.body;
     if (
       isEmpty(phone) ||
       isEmpty(name) ||
       isEmpty(address) ||
-      isEmpty(registraction) ||
+      isEmpty(registration) ||
       isEmpty(fare)
     ) {
       return resData(
@@ -65,8 +65,8 @@ const phoneController = {
       );
     }
     try {
-      const query = `INSERT INTO phone (phone,  name, address, registraction, fare) VALUES (?,?,?,?,?)`;
-      const values = [phone, name, address, registraction, fare];
+      const query = `INSERT INTO phone (phone,  name, address, registration, fare) VALUES (?,?,?,?,?)`;
+      const values = [phone, name, address, registration, fare];
       const [rows] = await db.execute(query, values);
       if (rows.affectedRows == 1) {
         return resData(
@@ -106,13 +106,13 @@ const phoneController = {
 
   update: async (req) => {
     const { name } = req.params;
-    const { phone, fare, address, registraction } = req.body;
+    const { phone, fare, address, registration } = req.body;
     if (
       isEmpty(fare) ||
       isEmpty(phone) ||
       isEmpty(name) ||
       isEmpty(address) ||
-      isEmpty(registraction)
+      isEmpty(registration)
     ) {
       return resData(
         STATUS.E100.result,
@@ -122,8 +122,8 @@ const phoneController = {
     }
 
     try {
-      const query = `UPDATE ${TABLE.PHONE} SET phone=?, name=?, address=?, registraction=?, fare=? WHERE name=?`;
-      const values = [phone, name, address, registraction, fare];
+      const query = `UPDATE ${TABLE.PHONE} SET phone=?, address=?, registration=?, fare=? WHERE name=?`;
+      const values = [phone, address, registration, fare, name];
       const [rows] = await db.execute(query, values);
       if (rows.affectedRows == 1) {
         return resData(

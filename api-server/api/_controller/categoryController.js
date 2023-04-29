@@ -17,12 +17,12 @@ const getTotal = async () => {
 };
 const getList = async (req) => {
   try {
-    const birth = req.query.startDate || 0;
+    const id = req.query.id || 0;
     const len = parseInt(req.query.len) || 10;
 
     let where = "";
-    if (birth) {
-      where = `WHERE id >= '${birth}'`;
+    if (id) {
+      where = `WHERE id >= '${id}'`;
     }
     const query = `SELECT * FROM ${TABLE.CATEGORY} ${where} order by id desc limit 0, ${len}`;
     console.log(query);
@@ -99,9 +99,9 @@ const categoryController = {
   },
 
   update: async (req) => {
-    const { id } = req.params;
-    const { name, description } = req.body;
-    if (isEmpty(id) || isEmpty(name) || isEmpty(description)) {
+    const { name } = req.params;
+    const { newName, description } = req.body;
+    if (isEmpty(newName) || isEmpty(name) || isEmpty(description)) {
       return resData(
         STATUS.E100.result,
         STATUS.E100.resultDesc,
@@ -110,8 +110,8 @@ const categoryController = {
     }
 
     try {
-      const query = `UPDATE ${TABLE.CATEGORY} SET name=?, description=? WHERE id=?`;
-      const values = [name, desciption, id];
+      const query = `UPDATE ${TABLE.CATEGORY} SET name=?, description=? WHERE name=?`;
+      const values = [newName, description, name];
       const [rows] = await db.execute(query, values);
       if (rows.affectedRows == 1) {
         return resData(
