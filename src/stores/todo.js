@@ -33,15 +33,11 @@ export default defineStore("useTodo", {
       this.tasks = LocalStorage.getItem("todo");
     },
     removeTodo(id) {
-      //this.tasks에서 id find해서 가져오기
-      // 배열 안 오브젝트일때 idx
       const idx = this.tasks.findIndex((task) => task.id == id);
-      //삭제 array.splice(시작 index, 제거 index, 추가 요소)
       this.tasks.splice(idx, 1);
       LocalStorage.set("todo", this.tasks);
     },
     editTodo(item) {
-      //배열에서 수정하되 done은 'n'으로
       const idx = this.tasks.findIndex((task) => task == item);
       item.done = "N";
       this.tasks.splice(idx, 1, item);

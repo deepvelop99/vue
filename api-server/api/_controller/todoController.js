@@ -219,7 +219,7 @@ const todoController = {
     }
     try {
       //더미쌓기 타이틀에 1씩추가하면서 인서트하기
-      let query = `INSERT INTO todo (title, done) VALUES `; //.values( data1 ), (data2),,,
+      let query = `INSERT INTO todo (title, done) VALUES `; //.values( data1 ), (data2),,
       let arr = [];
       for (let i = 0; i < len; i++) {
         arr.push(`('${title}_${i}', '${done}')`);
