@@ -1,5 +1,3 @@
-const moment = require("moment");
-
 const lib = {
   //응답데이터 공통함수
   resData: (status, message, resDate, data) => {

@@ -7,9 +7,10 @@ const port = config.PORT;
 const cors = require("cors");
 
 let corsOptions = {
-  origin: "*",
-  credential: true,
+  origin: "http://localhost:8080",
+  credentials: true,
 };
+
 app.use(cors(corsOptions));
 
 app.use(express.json());
